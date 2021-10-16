@@ -48,30 +48,43 @@ const DeviceInfo = sequelize.define("ingredients", {
   name: { type: DataTypes.STRING },
 });
 
+const TypeBrand = sequelize.define("type_brand", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+})
+
 User.hasOne(Basket);
 Basket.belongsTo(User);
 
-Basket.hasMany(Device);
-Device.belongsToMany(Basket, { through: "Basket"});
 
-User.hasMany(Rating);
-Rating.belongsTo(User);
+User.hasMany(Rating)
+Rating.belongsTo(User)
 
-Food.hasMany(Rating);
-Rating.belongsTo(Food);
+Basket.hasMany(BasketDevice);
+BasketDevice.belongsTo(Basket);
 
-User.hasOne(Cooker);
-Cooker.belongsTo(User);
+Type.hasMany(Device)
+Device.belongsTo(Type)
 
-Food.hasMany(Ingredients);
-Ingredients.belongsToMany(Food);
+Brand.hasMany(Device)
+Device.belongsTo(Brand)
+
+Device.hasMany(Rating);
+Rating.belongsTo(Device);
+
+Device.hasMany(BasketDevice)
+BasketDevice.belongsTo(Device)
+
+Type.belongsToMany(Brand, { through: TypeBrand})
+Brand.belongsToMany(Type, {through: TypeBrand})
+
 
 module.exports = {
   User,
-  Cooker,
+  Device,
   Basket,
-  BasketFood,
+  BasketDevice,
+  DeviceInfo,
   Rating,
-  Ingredients,
-  Food,
+  Type,
+  TypeBrand,
 };
