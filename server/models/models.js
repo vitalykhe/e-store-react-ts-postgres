@@ -9,7 +9,7 @@ const User = sequelize.define("user", {
   role: { type: DataTypes.STRING, defaultValue: "USER" },
 });
 
-const Device = sequelize.define("food", {
+const Device = sequelize.define("device", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   description: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -19,6 +19,7 @@ const Device = sequelize.define("food", {
   typeId: { type: DataTypes.INTEGER, allowNull: false },
   brandId: { type: DataTypes.INTEGER, allowNull: false },
 });
+ 
 
 const Rating = sequelize.define("rating", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -29,7 +30,7 @@ const Type = sequelize.define("type", {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const Brand = sequelize.define("type", {
+const Brand = sequelize.define("brand", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
@@ -43,7 +44,7 @@ const BasketDevice = sequelize.define("basket", {
   qty: { type: DataTypes.INTEGER }
 });
 
-const DeviceInfo = sequelize.define("ingredients", {
+const DeviceInfo = sequelize.define("device_info", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING },
 });
