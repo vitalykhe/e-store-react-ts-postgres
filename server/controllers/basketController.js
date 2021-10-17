@@ -1,11 +1,8 @@
 class BasketController {
-    async registration(req, res) {
+    async create(req, res) {
 
     }
-    async login(req, res) {
-        
-    }
-    async checkAuth(req, res) {
+    async getAll(req, res) {
         
     }
 }

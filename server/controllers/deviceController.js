@@ -1,11 +1,11 @@
 class DeviceController {
-    async registration(req, res) {
+    async create(req, res) {
 
     }
-    async login(req, res) {
+    async getAll(req, res) {
         
     }
-    async checkAuth(req, res) {
+    async getOne(req, res) {
         
     }
 }
