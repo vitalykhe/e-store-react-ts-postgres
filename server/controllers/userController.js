@@ -6,7 +6,7 @@ class UserController {
         
     }
     async checkAuth(req, res) {
-        const query = req.query
+        const { id } = req.query
         res.json(query)
     }
 }
