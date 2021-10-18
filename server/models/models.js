@@ -88,4 +88,5 @@ module.exports = {
   Rating,
   Type,
   TypeBrand,
+  Brand
 };
