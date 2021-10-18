@@ -14,6 +14,7 @@ const generateToken = (userId, email, role) => {
 };
 
 class UserController {
+
   async registration(req, res, next) {
     const { email, password, role } = req.body;
     if (!email || !password) {
@@ -33,6 +34,7 @@ class UserController {
     const token = generateToken(user.id, user.email, user.role);
     return res.json({token});
   }
+
   async login(req, res, next) {
     const { email, password } = req.body
     const user = await User.findOne({where: { email }})
@@ -46,12 +48,10 @@ class UserController {
     const token = generateToken(user.id, user.email, user.role);
     return res.json({token});
   }
+
   async checkAuth(req, res, next) {
-    const { id } = req.query;
-    if (!id) {
-      return next(ApiError.badRequest("Не задан ID"));
-    }
-    res.json(id);
+    const token = generateToken(user.id, user.email, user.role);
+    return res.json({token});
   }
 }
 
