@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt')
+
 const ApiError = require('../error/apiError')
 class UserController {
     async registration(req, res) {
