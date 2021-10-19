@@ -2,10 +2,12 @@ import React, { createContext } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import DeviceStore from "./store/DeviceStore";
 import UserStore from "./store/UserStore";
 
 type ContextProps = { 
   user: UserStore;
+  devices: DeviceStore
 };
 
 export const Context = createContext<Partial<ContextProps>>({});
@@ -13,7 +15,8 @@ export const Context = createContext<Partial<ContextProps>>({});
 ReactDOM.render(
   <React.StrictMode>
     <Context.Provider value={{
-      user: new UserStore()
+      user: new UserStore(),
+      devices: new DeviceStore()
     }}>
       <App />
     </Context.Provider>,

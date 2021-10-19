@@ -4,3 +4,21 @@ export type User = {
     email: string;
     role:string;
 }
+
+export type Device = {
+    id: number
+    name: string;
+    img_url: string;
+    price: number;
+    description: string;
+}
+
+export type Type = {
+    id: number;
+    name: string;
+}
+
+export type Brand = {
+    id: number;
+    name: string;
+}
