@@ -7,7 +7,7 @@ import UserStore from "./store/UserStore";
 
 type ContextProps = { 
   user: UserStore;
-  devices: DeviceStore
+  devices: DeviceStore;
 };
 
 export const Context = createContext<Partial<ContextProps>>({});

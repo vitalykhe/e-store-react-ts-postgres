@@ -1,4 +1,6 @@
 import React, { FC } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import TypesBar from '../components/TypesBar'
 
 interface IProps {}
 
@@ -9,6 +11,13 @@ interface IProps {}
 
 export const Shop:FC<IProps> = (props) => {
   return (
-    <div>Shop</div>
+    <Container>
+      <Row>
+        <Col md={3} className="mt-2">
+          <TypesBar/>
+        </Col>
+        <Col md={9}></Col>
+      </Row>
+    </Container>
    )
  }

@@ -22,4 +22,7 @@ export default class UserStore {
     getUser(): User|null {
         return this._user
     }
+    getRole(): string {
+        return this._user?.role||''
+    }
 }

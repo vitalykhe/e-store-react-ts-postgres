@@ -5,6 +5,8 @@ export default class DeviceStore {
   private _devices: Array<Device> | null;
   private _brands: Array<Brand> | null;
   private _types: Array<Type> | null;
+  private _selectedType: Type | null;
+
 
   constructor() {
     this._brands = [
@@ -15,6 +17,10 @@ export default class DeviceStore {
     this._types = [
       { id: 1, name: "LED strip" },
       { id: 2, name: "LED lens module" },
+      { id: 3, name: "LED projector" },
+      { id: 4, name: "LED grids" },
+      { id: 5, name: "LED lamps" },
+      { id: 6, name: "LED panels" },
     ];
 
     this._devices = [
@@ -52,6 +58,8 @@ export default class DeviceStore {
       },
     ];
 
+    this._selectedType = null
+
     makeAutoObservable(this);
   }
   getBrands() {
@@ -71,6 +79,13 @@ export default class DeviceStore {
   }
   setDevices(devices: Array<Device>|null) {
       this._devices = devices
+  }
+
+  setSelectedType(type: Type) {
+    this._selectedType = type
+  }
+  getSelectedType() {
+    return this._selectedType
   }
 
 }
