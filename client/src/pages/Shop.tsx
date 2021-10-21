@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import BrandsBar from '../components/BrandsBar'
 import TypesBar from '../components/TypesBar'
 
 interface IProps {}
@@ -16,7 +17,9 @@ export const Shop:FC<IProps> = (props) => {
         <Col md={3} className="mt-2">
           <TypesBar/>
         </Col>
-        <Col md={9}></Col>
+        <Col md={9}>
+          <BrandsBar/>
+        </Col>
       </Row>
     </Container>
    )

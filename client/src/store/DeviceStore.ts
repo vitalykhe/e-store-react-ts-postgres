@@ -6,12 +6,15 @@ export default class DeviceStore {
   private _brands: Array<Brand> | null;
   private _types: Array<Type> | null;
   private _selectedType: Type | null;
+  private _selectedBrand: Brand | null;
 
 
   constructor() {
     this._brands = [
       { id: 1, name: "LBY" },
       { id: 2, name: "Arlight" },
+      { id: 3, name: "SWG" },
+      { id: 4, name: "MIO" },
     ];
 
     this._types = [
@@ -59,6 +62,7 @@ export default class DeviceStore {
     ];
 
     this._selectedType = null
+    this._selectedBrand = null
 
     makeAutoObservable(this);
   }
@@ -86,6 +90,12 @@ export default class DeviceStore {
   }
   getSelectedType() {
     return this._selectedType
+  }
+  setSelectedBrand(brand: Brand) {
+    this._selectedBrand = brand
+  }
+  getSelectedBrand() {
+    return this._selectedBrand
   }
 
 }

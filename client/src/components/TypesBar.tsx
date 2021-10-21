@@ -12,17 +12,17 @@ interface Props { }
  **/
 
 const TypesBar: FC<Props> = observer((props) => {
-  const device = useContext(Context);
+  const { devices } = useContext(Context);
   return (
     <ListGroup as="ul">
-      {device?.devices?.getTypes()?.map((type) => {
+      { devices?.getTypes()?.map((type) => {
         const uniqueKey = uuidv4()
         return (
-          <ListGroup.Item 
-            style={{cursor: 'pointer'}}
+          <ListGroup.Item
+            style={{ cursor: 'pointer' }}
             key={uniqueKey}
-            onClick={()=>device?.devices?.setSelectedType(type)}
-            active={type.id === device?.devices?.getSelectedType()?.id}
+            onClick={() => devices?.setSelectedType(type)}
+            active={type.id === devices?.getSelectedType()?.id}
           >
             {type.name}
           </ListGroup.Item>
