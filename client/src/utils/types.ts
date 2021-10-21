@@ -11,6 +11,7 @@ export type Device = {
     img_url: string;
     price: number;
     description: string;
+    rating: number;
 }
 
 export type Type = {

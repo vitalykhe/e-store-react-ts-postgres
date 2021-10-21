@@ -1,7 +1,7 @@
 import { Admin } from "./pages/Admin";
 import { Auth } from "./pages/Auth";
 import { Basket } from "./pages/Basket";
-import { Device } from "./pages/Device";
+import { DevicePage } from "./pages/DevicePage";
 import { Shop } from "./pages/Shop";
 import * as routes from "./utils/consts";
 
@@ -23,11 +23,11 @@ export const publicRoutes = [
     },
     {
         path: routes.DEVICE_ROUTE,
-        component: Device
+        component: DevicePage
     },
     {
         path: routes.DEVICE_ROUTE + '/:id',
-        component: Device
+        component: DevicePage
     },
     {
         path: routes.LOGIN_ROUTE,

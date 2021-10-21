@@ -14,14 +14,14 @@ interface Props { }
 const BrandsBar: FC<Props> = observer((props) => {
   const { devices } = useContext(Context)
   return (
-    <Row className="d-flex justify-content-start">
+    <Row className="d-flex justify-content-start mb-3">
       {devices?.getBrands()?.map(brand => {
         const uk = uuidv4()
         return (
-          <Col>
-            <Card key={uk} className="p-1 mt-2 align-items-center"
-              onClick={()=>devices.setSelectedBrand(brand)}
-              border={brand.id === devices.getSelectedBrand()?.id ? 'primary': 'light'}
+          <Col key={uk}>
+            <Card  className="p-1 mt-2 align-items-center"
+              onClick={()=>devices.setSelectedBrands(brand.id)}
+              border={devices.getSelectedBrands().indexOf(brand.id) !== -1 ? 'primary': 'light'}
               style={{cursor: 'pointer'}}
             >
               {brand.name}

@@ -2,12 +2,21 @@ import { makeAutoObservable } from "mobx";
 import { Device, Type, Brand } from "../utils/types";
 
 export default class DeviceStore {
+
   private _devices: Array<Device> | null;
   private _brands: Array<Brand> | null;
   private _types: Array<Type> | null;
-  private _selectedType: Type | null;
-  private _selectedBrand: Brand | null;
-
+  private _selectedTypes: number[];
+  private _selectedBrands: number[];
+  
+  private addOrExcludeNumberFromArray(item: number, arr: Array<any>) {
+    const index = arr.indexOf(item);
+    if( index === -1) {
+      arr.push(item)
+    } else {
+      arr.splice(index, 1)
+    }
+  }
 
   constructor() {
     this._brands = [
@@ -34,6 +43,7 @@ export default class DeviceStore {
         description:
           "Double layer rolled copper FPC. High light efficacy 150LM/W",
         price: 2,
+        rating: 4.2,
       },
       {
         id: 2,
@@ -42,6 +52,7 @@ export default class DeviceStore {
         description:
           "Double layer rolled copper FPC. High light efficacy 150LM/W",
         price: 2,
+        rating: 3.9,
       },
       {
         id: 3,
@@ -50,6 +61,7 @@ export default class DeviceStore {
         description:
           "Double layer rolled copper FPC. High light efficacy 150LM/W",
         price: 2,
+        rating: 2.1,
       },
       {
         id: 4,
@@ -58,14 +70,16 @@ export default class DeviceStore {
         description:
           "Double layer rolled copper FPC. High light efficacy 150LM/W",
         price: 2,
+        rating: 4.9,
       },
     ];
 
-    this._selectedType = null
-    this._selectedBrand = null
+    this._selectedTypes = []
+    this._selectedBrands = []
 
     makeAutoObservable(this);
   }
+
   getBrands() {
     return this._brands;
   }
@@ -85,17 +99,19 @@ export default class DeviceStore {
       this._devices = devices
   }
 
-  setSelectedType(type: Type) {
-    this._selectedType = type
+  setSelectedTypes(typeId: number) {
+    this.addOrExcludeNumberFromArray(typeId, this._selectedTypes)
   }
-  getSelectedType() {
-    return this._selectedType
+  getSelectedTypes() {
+    return this._selectedTypes
   }
-  setSelectedBrand(brand: Brand) {
-    this._selectedBrand = brand
+
+  setSelectedBrands(brandId: number) {
+    this.addOrExcludeNumberFromArray(brandId, this._selectedBrands)
   }
-  getSelectedBrand() {
-    return this._selectedBrand
+
+  getSelectedBrands() {
+    return this._selectedBrands
   }
 
 }

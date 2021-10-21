@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import BrandsBar from '../components/BrandsBar'
+import DevicesList from '../components/DevicesList'
 import TypesBar from '../components/TypesBar'
 
 interface IProps {}
@@ -19,6 +20,7 @@ export const Shop:FC<IProps> = (props) => {
         </Col>
         <Col md={9}>
           <BrandsBar/>
+          <DevicesList/>
         </Col>
       </Row>
     </Container>

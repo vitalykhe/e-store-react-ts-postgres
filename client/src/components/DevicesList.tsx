@@ -3,8 +3,10 @@ import React, { FC, useContext } from 'react'
 import { Row } from 'react-bootstrap'
 import { Context } from '../index'
 import { v4 as uuidv4 } from 'uuid';
+import DeviceItem from '../components/DeviceItem';
 
-interface Props {}
+interface Props {
+}
 
 /**
 * @author 
@@ -17,9 +19,9 @@ const DevicesList:FC<Props> = observer(
     return (
       <Row className="d-flex">
         {devices?.getDevices()?.map(device => {
-          const uk = uuidv4()
+          const uk = uuidv4()          
           return (
-            <div></div>
+            <DeviceItem key={uk} device={device}/>
           )
         })}
       </Row>
