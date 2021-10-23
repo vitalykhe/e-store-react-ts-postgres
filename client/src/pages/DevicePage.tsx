@@ -24,16 +24,17 @@ const device = {
   
   return (
     <Container>
-      <Card>
+      <Card className="m-3">
         <Card.Img variant="top" src={device.img_url} width={120} height={120} />
         <Card.Body>
           <Card.Title>{device.name}</Card.Title>
           <Card.Text>
               {device.description}
             </Card.Text>
-          <div className="mb-2">
+          <div className="mb-4">
             <Star color={"red"} /> Rating: {device.rating}
           </div>
+          <Card.Title>Price: {device.price}$</Card.Title>
           <Button variant="primary">Add to cart</Button>
         </Card.Body>
       </Card>

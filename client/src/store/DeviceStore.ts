@@ -72,6 +72,42 @@ export default class DeviceStore {
         price: 2,
         rating: 4.9,
       },
+      {
+        id: 5,
+        name: "Third Device",
+        img_url: "e23d43ad-4d09-4862-b910-ceb222e01775.jpg",
+        description:
+          "Double layer rolled copper FPC. High light efficacy 150LM/W",
+        price: 2,
+        rating: 2.1,
+      },
+      {
+        id: 6,
+        name: "Fourth Device",
+        img_url: "e23d43ad-4d09-4862-b910-ceb222e01775.jpg",
+        description:
+          "Double layer rolled copper FPC. High light efficacy 150LM/W",
+        price: 2,
+        rating: 4.9,
+      },
+      {
+        id: 7,
+        name: "Third Device",
+        img_url: "e23d43ad-4d09-4862-b910-ceb222e01775.jpg",
+        description:
+          "Double layer rolled copper FPC. High light efficacy 150LM/W",
+        price: 2,
+        rating: 2.1,
+      },
+      {
+        id: 8,
+        name: "Fourth Device",
+        img_url: "e23d43ad-4d09-4862-b910-ceb222e01775.jpg",
+        description:
+          "Double layer rolled copper FPC. High light efficacy 150LM/W",
+        price: 2,
+        rating: 4.9,
+      },
     ];
 
     this._selectedTypes = []

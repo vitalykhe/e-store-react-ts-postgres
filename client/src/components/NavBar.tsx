@@ -1,18 +1,20 @@
-import { observer } from 'mobx-react-lite'
-import React, { FC, useContext } from 'react'
-import { Container, Nav, Navbar, Button } from 'react-bootstrap'
-import { Context } from '../index'
-import { SHOP_ROUTE } from '../utils/consts'
+import { observer } from "mobx-react-lite";
+import React, { FC, useContext } from "react";
+import { Container, Nav, Navbar, Button } from "react-bootstrap";
+import { Context } from "../index";
+import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from "../utils/consts";
+import { useHistory } from "react-router-dom";
 
-interface IProps { }
+interface IProps {}
 
 /**
-* @author
-* @function @NavBar
-**/
+ * @author
+ * @function @NavBar
+ **/
 
 export const NavBar: FC<IProps> = observer((props) => {
-  const { user } = useContext(Context)
+  const { user } = useContext(Context);
+  const history = useHistory();
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -23,11 +25,18 @@ export const NavBar: FC<IProps> = observer((props) => {
           <Nav.Link href="#features">Features</Nav.Link>
           <Nav.Link href="#pricing">Pricing</Nav.Link>
           <Nav.Link href="#pricing"></Nav.Link>
-          {user?.getIsAuth() ? <Button>logout</Button> : <Button>login</Button>}
+          {user?.getIsAuth() ? 
+            <Button onClick={() => history.push(LOGIN_ROUTE)}>logout</Button>
+            : 
+            <Button onClick={() => history.push(LOGIN_ROUTE)}>login</Button>}
           &nbsp;
-          {user?.getRole() === 'ADMIN' && user?.getIsAuth() ? <Button>admin panel</Button> : ''}
+          {user?.getRole() === "ADMIN" && user?.getIsAuth() ? (
+            <Button onClick={() => history.push(ADMIN_ROUTE)}>admin panel</Button>
+          ) : (
+            ""
+          )}
         </Nav>
       </Container>
     </Navbar>
-  )
-})
+  );
+});
