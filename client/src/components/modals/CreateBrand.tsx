@@ -23,12 +23,12 @@ export const CreateBrand:FC<IProps> = ({show, onHide}) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Add new band
+          Add new brand
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Control placeholder={'Enter new brand name'}/>
+          <Form.Control placeholder={'Enter brand name'}/>
         </Form>
       </Modal.Body>
       <Modal.Footer>  

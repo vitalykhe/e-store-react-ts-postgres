@@ -11,7 +11,7 @@ interface IProps {
 * @function @CreateType
 **/
 
-export const CreateType:FC<IProps> = (props) => {
+export const CreateType:FC<IProps> = ({show, onHide}) => {
   return (
     <Modal
       show={show}
@@ -21,12 +21,12 @@ export const CreateType:FC<IProps> = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Add new band
+          Add new type
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Control placeholder={'Enter new type name'}/>
+          <Form.Control placeholder={'Enter type name'}/>
         </Form>
       </Modal.Body>
       <Modal.Footer>  
