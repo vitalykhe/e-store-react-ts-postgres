@@ -1,7 +1,6 @@
-
-import React, { FC } from 'react'
-import { Button, Form } from 'react-bootstrap'
-import Modal from 'react-bootstrap/Modal'
+import React, { FC } from "react";
+import { Button, Form } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 
 interface IProps {
   show: boolean;
@@ -9,18 +8,13 @@ interface IProps {
 }
 
 /**
-* @author
-* @function @CreateBrand
-**/
+ * @author
+ * @function @CreateBrand
+ **/
 
-export const CreateBrand:FC<IProps> = ({show, onHide}) => {
+export const CreateBrand: FC<IProps> = ({ show, onHide }) => {
   return (
-    <Modal
-      show={show}
-      onHide={onHide}
-      size="lg"
-      centered
-    >
+    <Modal show={show} onHide={onHide} size="sm" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Add new brand
@@ -28,13 +22,17 @@ export const CreateBrand:FC<IProps> = ({show, onHide}) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Control placeholder={'Enter brand name'}/>
+          <Form.Control placeholder={"Enter brand name"} />
         </Form>
       </Modal.Body>
-      <Modal.Footer>  
-        <Button variant={'outline'} onClick={()=> {}}>Add</Button>
-        <Button variant={'outline'} onClick={onHide}>Close</Button>
+      <Modal.Footer>
+        <Button variant={"outline"} onClick={() => {}}>
+          Add
+        </Button>
+        <Button variant={"outline"} onClick={onHide}>
+          Close
+        </Button>
       </Modal.Footer>
     </Modal>
-   )
- }
+  );
+};

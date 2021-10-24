@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-import { Button, Card, Col, Container, Image } from "react-bootstrap";
+import { Button, Card, Container,} from "react-bootstrap";
 import { Star } from "react-bootstrap-icons";
-import { Device } from "../utils/types";
 
 interface IProps {
 }

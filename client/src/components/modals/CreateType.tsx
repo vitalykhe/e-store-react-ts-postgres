@@ -16,7 +16,7 @@ export const CreateType:FC<IProps> = ({show, onHide}) => {
     <Modal
       show={show}
       onHide={onHide}
-      size="lg"
+      size="sm"
       centered
     >
       <Modal.Header closeButton>
