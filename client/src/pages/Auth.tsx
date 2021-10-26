@@ -1,8 +1,11 @@
-import React, { FC, useState } from "react";
+import { observer } from "mobx-react-lite";
+import React, { FC, useContext, useState } from "react";
 import { Button, Card, Container, Form } from "react-bootstrap";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
+import { Context } from "../index";
 import { login, registration } from "../http/userApi";
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../utils/consts";
+import { AuthTokenBody } from "../utils/types";
 
 interface IProps { }
 
@@ -11,24 +14,28 @@ interface IProps { }
  * @function @Auth
  **/
 
-export const Auth: FC<IProps> = (props) => {
+export const Auth: FC<IProps> = observer((props) => {
+  const { user } = useContext(Context)
   const location = useLocation()
   const isLogin = location.pathname === LOGIN_ROUTE ? true : false
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const history = useHistory()
 
   const signOrRegister = async () => {
-
-    if(isLogin) {
-      const { token } = await login( email, password )
-      const decodedLoginToken = jwt_decode(token)
-    } else {
-      const { token } = await registration( email, password )
-      const decodedRegistrationToken = jwt_decode(token)
-      console.log(decodedRegistrationToken)
+    try {
+      let authResponse: AuthTokenBody
+      if(isLogin) {
+        authResponse = await login( email, password )
+      } else {
+        authResponse = await registration( email, password )
+      }
+      user?.setUser(authResponse)
+      user?.setIsAuth(true)
+      history.push(SHOP_ROUTE)
+    } catch (error) {
+      alert(error)
     }
-      
-
   }
 
   return (
@@ -53,8 +60,6 @@ export const Auth: FC<IProps> = (props) => {
       </Card>
     </Container>
   );
-};
-function jwt_decode(token: string) {
-  throw new Error("Function not implemented.");
 }
+)
 

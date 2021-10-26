@@ -1,24 +1,26 @@
 import { $authHost, $noAuthHost } from "./index";
+import { AuthTokenBody , AuthResponseData} from '../utils/types'
+import jwt_decode from 'jwt-decode';
 
-interface AuthResponseData {
-    token: string;
-}
 export const registration = async (email: string, password: string) => {
-  
-  const { data } = await $noAuthHost.post("api/user/registration", {
+  const response = await $noAuthHost.post("api/user/registration", {
     email,
     password,
     role: 'ADMIN',
-  });
-  return data as AuthResponseData
+  })
+  const data = response.data as AuthResponseData
+  const tokenBody: AuthTokenBody = jwt_decode(data.token)
+  return tokenBody
 };
 
 export const login = async (email: string, password: string) => {
-  const { data } = await $noAuthHost.post("api/user/login", {
+  const response = await $noAuthHost.post("api/user/login", {
     email,
     password,
   });
-  return data as AuthResponseData
+  const data = response.data as AuthResponseData
+  const tokenBody: AuthTokenBody = jwt_decode(data.token)
+  return tokenBody
 };
 
 export const check = async () => {

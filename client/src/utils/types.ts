@@ -5,6 +5,15 @@ export type User = {
     role:string;
 }
 
+export interface AuthResponseData {
+    token: string;
+}
+
+export interface AuthTokenBody extends User{
+    "iat": number;
+    "exp": number;
+}
+
 export type Device = {
     id: number
     name: string;
