@@ -21,8 +21,8 @@ const TypesBar: FC<Props> = observer((props) => {
           <ListGroup.Item
             style={{ cursor: 'pointer' }}
             key={uniqueKey}
-            onClick={() => devices?.setSelectedTypes(type.id)}
-            active={ devices.getSelectedTypes().indexOf(type.id) !== -1 }
+            onClick={() => devices?.setSelectedType(type.id)}
+            active={ devices.getSelectedType() === type.id }
           >
             {type.name}
           </ListGroup.Item>

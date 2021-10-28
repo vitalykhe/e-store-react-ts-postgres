@@ -6,6 +6,7 @@ import { Context } from "../index";
 import { login, registration } from "../http/userApi";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../utils/consts";
 import { AuthTokenBody } from "../utils/types";
+import { AxiosError } from 'axios'
 
 interface IProps { }
 
@@ -22,6 +23,10 @@ export const Auth: FC<IProps> = observer((props) => {
   const [password, setPassword] = useState('')
   const history = useHistory()
 
+  function isAxiosError(e: Error | AxiosError): boolean {
+    return (e as AxiosError).request !== undefined;
+  }
+
   const signOrRegister = async () => {
     try {
       let authResponse: AuthTokenBody
@@ -34,7 +39,13 @@ export const Auth: FC<IProps> = observer((props) => {
       user?.setIsAuth(true)
       history.push(SHOP_ROUTE)
     } catch (error) {
-      alert(error)
+      if (error instanceof Error) {
+        if(isAxiosError(error)){
+          let axiosError = error as AxiosError
+          alert(axiosError.response?.data)
+
+        }
+      }
     }
   }
 

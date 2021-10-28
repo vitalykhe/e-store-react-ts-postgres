@@ -28,6 +28,7 @@ class UserController {
         ApiError.badRequest("Пользователь с таким email уже существует")
       );
     }
+    
     const hashedPassword = await bcrypt.hash(password, 5);
     const user = await User.create({ email, role, password: hashedPassword });
     const basket = await Basket.create({ userId: user.id });

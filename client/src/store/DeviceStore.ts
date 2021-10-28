@@ -6,7 +6,7 @@ export default class DeviceStore {
   private _devices: Array<Device> | null;
   private _brands: Array<Brand> | null;
   private _types: Array<Type> | null;
-  private _selectedTypes: number[];
+  private _selectedType: number|null;
   private _selectedBrands: number[];
   
   private addOrExcludeNumberFromArray(item: number, arr: Array<any>) {
@@ -110,7 +110,7 @@ export default class DeviceStore {
       },
     ];
 
-    this._selectedTypes = []
+    this._selectedType = null
     this._selectedBrands = []
 
     makeAutoObservable(this);
@@ -135,11 +135,11 @@ export default class DeviceStore {
       this._devices = devices
   }
 
-  setSelectedTypes(typeId: number) {
-    this.addOrExcludeNumberFromArray(typeId, this._selectedTypes)
+  setSelectedType(typeId: number) {
+    this._selectedType = typeId
   }
-  getSelectedTypes() {
-    return this._selectedTypes
+  getSelectedType() {
+    return this._selectedType
   }
 
   setSelectedBrands(brandId: number) {
