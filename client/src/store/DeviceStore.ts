@@ -4,8 +4,8 @@ import { Device, Type, Brand } from "../utils/types";
 export default class DeviceStore {
 
   private _devices: Array<Device> | null;
-  private _brands: Array<Brand> | null;
-  private _types: Array<Type> | null;
+  private _brands: Array<Brand>;
+  private _types: Array<Type>;
   private _selectedType: number|null;
   private _selectedBrands: number[];
   
@@ -19,22 +19,8 @@ export default class DeviceStore {
   }
 
   constructor() {
-    this._brands = [
-      { id: 1, name: "LBY" },
-      { id: 2, name: "Arlight" },
-      { id: 3, name: "SWG" },
-      { id: 4, name: "MIO" },
-    ];
-
-    this._types = [
-      { id: 1, name: "LED strip" },
-      { id: 2, name: "LED lens module" },
-      { id: 3, name: "LED projector" },
-      { id: 4, name: "LED grids" },
-      { id: 5, name: "LED lamps" },
-      { id: 6, name: "LED panels" },
-    ];
-
+    this._brands = []
+    this._types = []
     this._devices = [
       {
         id: 1,
@@ -119,19 +105,19 @@ export default class DeviceStore {
   getBrands() {
     return this._brands;
   }
-  setBrands(brands: Array<Brand>|null) {
+  setBrands(brands: Array<Brand>) {
       this._brands = brands
   }
   getTypes() {
     return this._types;
   }
-  setTypes(types: Array<Type>|null) {
+  setTypes(types: Array<Type>) {
       this._types = types
   }
   getDevices() {
     return this._devices;
   }
-  setDevices(devices: Array<Device>|null) {
+  setDevices(devices: Array<Device>) {
       this._devices = devices
   }
 

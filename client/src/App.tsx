@@ -13,38 +13,39 @@ interface IProps {}
  * @function @App
  **/
 
-const App: FC<IProps> = observer((props) => {
+const App: FC<IProps> = observer(() => {
   const { user } = useContext(Context);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('before check :' + loading)
-      check()
-        .then((tokenBody) => {
-          user?.setUser(tokenBody);
-          console.log(user)
-          user?.setIsAuth(true);
-          console.log('Loading then:' + loading)
-        })
-        .finally(() => { 
-          setLoading(false)
-          console.log('Loading :' + loading)
-        });
-  }, []);
+    check()
+      .then((tokenBody) => {
+        user?.setUser(tokenBody);
+        user?.setIsAuth(true);
+      })
+      .catch((e) => {
+        console.log(e.message);
+      })
+      .finally(() => {
+        //to avoid re-rendering
+        setLoading(false);
+      });
 
-  // if (loading)
-  //   return (
-  //     <Button variant="primary" disabled>
-  //       <Spinner
-  //         as="span"
-  //         animation="grow"
-  //         size="sm"
-  //         role="status"
-  //         aria-hidden="true"
-  //       />
-  //       Loading...
-  //     </Button>
-  //   );
+  });
+
+  if (loading)
+    return (
+      <Button variant="primary" disabled>
+        <Spinner
+          as="span"
+          animation="grow"
+          size="sm"
+          role="status"
+          aria-hidden="true"
+        />
+        Loading...
+      </Button>
+    );
 
   return (
     <BrowserRouter>

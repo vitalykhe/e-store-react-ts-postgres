@@ -13,7 +13,7 @@ export default class UserStore {
         this._isAuth = bool
     }
     //переопределит тип позже, когда будут известны все поля пользователя
-    setUser(user: User) { 
+    setUser(user: User|null) { 
         this._user = user
     }
     getIsAuth(): boolean {

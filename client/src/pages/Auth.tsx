@@ -5,8 +5,8 @@ import { NavLink, useHistory, useLocation } from "react-router-dom";
 import { Context } from "../index";
 import { login, registration } from "../http/userApi";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../utils/consts";
-import { AuthTokenBody } from "../utils/types";
-import { AxiosError } from 'axios'
+import { AuthTokenBody, AxiosCustomError } from "../utils/types";
+
 
 interface IProps { }
 
@@ -23,8 +23,9 @@ export const Auth: FC<IProps> = observer((props) => {
   const [password, setPassword] = useState('')
   const history = useHistory()
 
-  function isAxiosError(e: Error | AxiosError): boolean {
-    return (e as AxiosError).request !== undefined;
+  function isAxiosError(e: Error | AxiosCustomError): boolean {
+    return (e as AxiosCustomError).request !== undefined 
+    && (e as AxiosCustomError).response !== undefined;
   }
 
   const signOrRegister = async () => {
@@ -41,9 +42,8 @@ export const Auth: FC<IProps> = observer((props) => {
     } catch (error) {
       if (error instanceof Error) {
         if(isAxiosError(error)){
-          let axiosError = error as AxiosError
-          alert(axiosError.response?.data)
-
+          let axiosError = error as AxiosCustomError
+          alert(axiosError.response?.data.message)
         }
       }
     }

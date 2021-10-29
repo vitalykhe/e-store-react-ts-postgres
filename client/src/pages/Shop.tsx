@@ -1,8 +1,11 @@
-import React, { FC } from 'react'
+import { observer } from 'mobx-react-lite'
+import React, { FC, useContext, useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import { Context } from '..'
 import BrandsBar from '../components/BrandsBar'
 import DevicesList from '../components/DevicesList'
 import TypesBar from '../components/TypesBar'
+import { fetchBrands, fetchTypes } from '../http/deviceAPI'
 
 interface IProps {}
 
@@ -11,7 +14,14 @@ interface IProps {}
 * @function @Shop
 **/
 
-export const Shop:FC<IProps> = (props) => {
+export const Shop:FC<IProps> = observer( (props) => {
+  const { devices } = useContext(Context)
+
+  useEffect(() => {
+    fetchTypes().then(types => devices?.setTypes(types))
+    fetchBrands().then(brands => devices?.setBrands(brands))
+  })
+
   return (
     <Container>
       <Row>
@@ -25,4 +35,4 @@ export const Shop:FC<IProps> = (props) => {
       </Row>
     </Container>
    )
- }
+ })

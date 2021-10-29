@@ -40,19 +40,19 @@ class UserController {
     const { email, password } = req.body
     const user = await User.findOne({where: { email }})
     if(!user) {
-      return next(ApiError.internal("Пользователя с таким  email не существует"))
+      return next(ApiError.internal("User email doesn't exist"))
     }
     let comparePassword = bcrypt.compareSync(password, user.password)
     if(!comparePassword) {
-      return next(ApiError.internal("Неверный пароль"))
+      return next(ApiError.internal("Wrong password"))
     }
     const token = generateToken(user.id, user.email, user.role);
     return res.json({token});
   }
 
   async checkAuth(req, res, next) {
-    const token = generateToken(user.id, user.email, user.role);
-    return res.json({token});
+    const token = generateToken(req.user.id, req.user.user, req.user.role);
+    return res.json({token})
   }
 }
 

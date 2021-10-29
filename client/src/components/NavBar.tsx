@@ -16,6 +16,12 @@ export const NavBar: FC<IProps> = observer((props) => {
   const { user } = useContext(Context);
   const history = useHistory();
 
+  const logOut = () => {
+    user?.setIsAuth(false)
+    user?.setUser(null)
+    localStorage.removeItem('token')
+  }
+
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
@@ -26,7 +32,7 @@ export const NavBar: FC<IProps> = observer((props) => {
           <Nav.Link href="#pricing">Pricing</Nav.Link>
           <Nav.Link href="#pricing"></Nav.Link>
           {user?.getIsAuth() ? 
-            <Button onClick={() => history.push(LOGIN_ROUTE)}>logout</Button>
+            <Button onClick={() => logOut()}>logout</Button>
             : 
             <Button onClick={() => history.push(LOGIN_ROUTE)}>login</Button>}
           &nbsp;

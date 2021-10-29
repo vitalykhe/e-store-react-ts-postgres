@@ -1,3 +1,20 @@
+import { AxiosRequestConfig, AxiosResponse } from "axios"
+
+interface AxiosCustomResponse extends Omit<AxiosResponse, 'data'> {
+    data: {
+        message: string;
+    }
+}
+
+export interface AxiosCustomError<T = unknown, D = any> extends Error {
+    config: AxiosRequestConfig<D>;
+    code?: string;
+    request?: any;
+    response?: AxiosCustomResponse;
+    isAxiosError: boolean;
+    toJSON: () => object;
+  }
+
 export type User = {
     id: number;
     name: string;
