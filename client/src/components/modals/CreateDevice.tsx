@@ -14,29 +14,29 @@ interface IProps {
  **/
 
 export const CreateDevice: FC<IProps> = ({ show, onHide }) => {
-  interface DeviceDescription {
-    title: string;
-    description: string;
-    uk: number;
+  interface DeviceProperty {
+    propertyTitle: string;
+    propertyDescription: string;
+    uniqueKey: number;
   }
   const { devices } = useContext(Context);
-  const [deviceDescriptionTags, setDeviceDescriptionTags] = useState<
-    DeviceDescription[]
+  const [deviceProperties, setDeviceProperties] = useState<
+    DeviceProperty[]
   >([]);
 
   const addNewProp = () => {
-    setDeviceDescriptionTags([
-      ...deviceDescriptionTags,
+    setDeviceProperties([
+      ...deviceProperties,
       {
-        title: "",
-        description: "",
-        uk: Date.now(),
+        propertyTitle: "",
+        propertyDescription: "",
+        uniqueKey: Date.now(),
       },
     ]);
   };
 
-  const removeProp = (uk: number):void => {
-    setDeviceDescriptionTags(deviceDescriptionTags.filter(tag => tag.uk !== uk));
+  const removeProp = (uniqueKey: number):void => {
+    setDeviceProperties(deviceProperties.filter(property => property.uniqueKey !== uniqueKey));
   };
 
   return (
@@ -78,15 +78,15 @@ export const CreateDevice: FC<IProps> = ({ show, onHide }) => {
             className="m-1"
           />
           <hr />
-          {deviceDescriptionTags.map((tag) => (
-            <Row key={tag.uk} className="m-3">
+          {deviceProperties.map((property) => (
+            <Row key={property.uniqueKey} className="m-3">
               <Col>
                 <Form.Control placeholder={"title"} className="m-1" />
               </Col>
               <Col>
                 <Form.Control placeholder={"description"} className="m-1" />
               </Col>
-              <Col><Button variant={'warning'} onClick={() => removeProp(tag.uk)}>remove</Button></Col>
+              <Col><Button variant={'warning'} onClick={() => removeProp(property.uniqueKey)}>remove</Button></Col>
             </Row>
           ))}
           <Button variant={"outline"} onClick={addNewProp}>

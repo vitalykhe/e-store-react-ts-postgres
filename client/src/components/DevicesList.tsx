@@ -16,6 +16,7 @@ interface Props {
 const DevicesList:FC<Props> = observer(
   (props) => {
   const { devices } = useContext(Context)
+
     return (
       <Row className="d-flex">
         {devices?.getDevices()?.map(device => {

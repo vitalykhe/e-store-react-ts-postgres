@@ -5,7 +5,7 @@ import { Context } from '..'
 import BrandsBar from '../components/BrandsBar'
 import DevicesList from '../components/DevicesList'
 import TypesBar from '../components/TypesBar'
-import { fetchBrands, fetchTypes } from '../http/deviceAPI'
+import { fetchBrands, fetchDevices, fetchTypes } from '../http/deviceAPI'
 
 interface IProps {}
 
@@ -20,6 +20,7 @@ export const Shop:FC<IProps> = observer( (props) => {
   useEffect(() => {
     fetchTypes().then(types => devices?.setTypes(types))
     fetchBrands().then(brands => devices?.setBrands(brands))
+    fetchDevices().then(device => devices?.setDevices(device))
   })
 
   return (

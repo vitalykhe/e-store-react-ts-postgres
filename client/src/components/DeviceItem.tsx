@@ -19,7 +19,7 @@ const DeviceItem: FC<Props> = ({ device }) => {
   return (
     <Col md={3} className="mt-3">
       <Card style={{ width: "11rem", height: "16rem" }}>
-        <Card.Img variant="top" src={device.img_url} width={120} height={120}/>
+        <Card.Img variant="top" src={process.env.REACT_APP_SERVER_API_URL + "/" + device.img_url} width={120} height={120}/>
         <Card.Body onClick={() => history.push(DEVICE_ROUTE + "/" + device.id)} style={{cursor: 'pointer'}}>
           <Card.Text>{device.name} <strong>{device.price}$</strong></Card.Text>
           {/* <Card.Text>

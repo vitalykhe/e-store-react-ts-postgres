@@ -33,7 +33,7 @@ class DeviceController {
 
     let devices;
     if (!brandId && !typeId) {
-      devices = await Device.findAndCountAll(limit, offset);
+    devices = await Device.findAndCountAll({limit, offset});
     }
     if (!brandId && typeId) {
       devices = await Device.findAndCountAll({
@@ -66,7 +66,16 @@ class DeviceController {
     return res.json(devices);
   }
 
-  async getOne(req, res) {}
+  async getOne(req, res) {
+    const { id } = req.params
+    const device = await Device.findOne({ 
+      where: {id},
+      include: [{
+        model: DeviceInfo
+      }] 
+    })
+    return res.json(device);
+  }
 }
 
 module.exports = new DeviceController();

@@ -31,13 +31,27 @@ export interface AuthTokenBody extends User{
     "exp": number;
 }
 
+export type DevicesAPIResponse = {
+    count: number;
+    rows: Device[]
+}
+
 export type Device = {
     id: number
     name: string;
     img_url: string;
     price: number;
-    description: string;
+    description: DeviceProperty[];
     rating: number;
+    updatedAt?: string;
+    createdAt?: string;
+}
+
+
+type DeviceProperty = {
+    propertyTitle: string;
+    propertyDescription: string;
+    uniqueKey: number;
 }
 
 export type Type = {
