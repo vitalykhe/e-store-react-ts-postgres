@@ -75,7 +75,7 @@ Rating.belongsTo(Device);
 Device.hasMany(BasketDevice)
 BasketDevice.belongsTo(Device)
 
-Device.hasOne(DeviceInfo)
+Device.hasMany(DeviceInfo)
 DeviceInfo.belongsTo(Device)
 
 Type.belongsToMany(Brand, { through: TypeBrand})
@@ -90,5 +90,6 @@ module.exports = {
   Rating,
   Type,
   TypeBrand,
-  Brand
+  Brand,
+  DeviceInfo
 };

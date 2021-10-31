@@ -39,6 +39,16 @@ export const CreateDevice: FC<IProps> = ({ show, onHide }) => {
     setDeviceProperties(deviceProperties.filter(property => property.uniqueKey !== uniqueKey));
   };
 
+  const addDevice = () => {
+    const formData = new FormData()
+    formData.append('title', '')
+    formData.append('price', '')
+    formData.append('img_url', '')
+    formData.append('brand', '')
+    formData.append('type', '')
+    formData.append('device_properties', '')
+  }
+
   return (
     <Modal show={show} onHide={onHide} size="lg" centered>
       <Modal.Header closeButton>

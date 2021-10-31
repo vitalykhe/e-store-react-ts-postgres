@@ -1,4 +1,4 @@
-const { Device } = require("../models/models");
+const { Device, DeviceInfo } = require("../models/models");
 const ApiError = require("../error/apiError");
 const uuid = require("uuid");
 const path = require("path");
@@ -6,10 +6,12 @@ const path = require("path");
 class DeviceController {
   async create(req, res, next) {
     try {
-      const { name, description, price, typeId, brandId } = req.body;
+      const { name, description, price, typeId, brandId, device_info } =
+        req.body;
       const { img_url } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img_url.mv(path.resolve(__dirname, "..", "static", fileName));
+
       const device = await Device.create({
         name,
         description,
@@ -17,7 +19,17 @@ class DeviceController {
         typeId,
         brandId,
         img_url: fileName,
+      }).then((res) => {
+        let arr = []
+        for (const [key, value] of Object.entries(JSON.parse(device_info))) {
+          arr.push({'property_name': key, 'property_value' : value, 'deviceId': res.getDataValue('id')});
+        }
+        console.log(arr)
+        DeviceInfo.bulkCreate(
+          arr
+        );
       });
+
       return res.json(device);
     } catch (error) {
       next(ApiError.badRequest(error.message));
@@ -26,14 +38,14 @@ class DeviceController {
 
   async getAll(req, res) {
     const { brandId, typeId } = req.query;
-    let  { limit, page } = req.query;
+    let { limit, page } = req.query;
     page = page || 1;
     limit = limit || 9;
     let offset = page * limit - limit;
 
     let devices;
     if (!brandId && !typeId) {
-    devices = await Device.findAndCountAll({limit, offset});
+      devices = await Device.findAndCountAll({ limit, offset });
     }
     if (!brandId && typeId) {
       devices = await Device.findAndCountAll({
@@ -67,13 +79,15 @@ class DeviceController {
   }
 
   async getOne(req, res) {
-    const { id } = req.params
-    const device = await Device.findOne({ 
-      where: {id},
-      include: [{
-        model: DeviceInfo
-      }] 
-    })
+    const { id } = req.params;
+    const device = await Device.findOne({
+      where: { id },
+      include: [
+        {
+          model: DeviceInfo,
+        },
+      ],
+    });
     return res.json(device);
   }
 }
