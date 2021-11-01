@@ -1,8 +1,8 @@
-import { $noAuthHost } from "./index";
+import { $noAuthHost, $authHost } from "./index";
 import { Type, Brand, Device, DevicesAPIResponse } from "../utils/types";
 
 export const createType = async (type: Type) => {
-  const response = await $noAuthHost.post("api/type", type);
+  const response = await $authHost.post("api/type", type);
   const data = response.data as Type;
   //Need type
   return data;
@@ -21,7 +21,7 @@ export const fetchTypes = async () => {
 };
 
 export const createBrand = async (brand: Brand) => {
-  const response = await $noAuthHost.post("api/brand", brand);
+  const response = await $authHost.post("api/brand", brand);
   const data = response.data as Brand;
   return data;
 };
@@ -34,13 +34,13 @@ export const fetchBrands = async () => {
     return data;
   else {
     console.error("recieved not array of brand from server");
-    console.log(data);
+    // console.log(data);
     return [];
   }
 };
 
 export const createDevice = async (device: Device) => {
-  const response = await $noAuthHost.post("api/device", device);
+  const response = await $authHost.post("api/device", device);
   const data = response.data as Device[];
   if (Array.isArray(data))
     //Need type
