@@ -21,13 +21,13 @@ export const Shop:FC<IProps> = observer( (props) => {
     fetchTypes().then(types => devices?.setTypes(types))
     fetchBrands().then(brands => devices?.setBrands(brands))
     fetchDevices().then(device => devices?.setDevices(device))
-  })
+  }, [devices])
 
   return (
     <Container>
       <Row>
         <Col md={3} className="mt-2">
-          <TypesBar/>
+          <TypesBar editable={false}/>
         </Col>
         <Col md={9}>
           <BrandsBar/>

@@ -43,14 +43,19 @@ export type Device = {
     price: number;
     description: string;
     rating: number;
-    device_infos: DeviceProperty;
+    device_infos: DeviceInfo[];
     updatedAt?: string;
     createdAt?: string;
 }
 
-
 interface DeviceProperty  {
-    [key: string] : string
+    [key: string] : string|number;
+}
+
+export interface DeviceInfo  {
+    id?: number;
+    property_name: string;
+    property_value: string;
 }
 
 export type Type = {

@@ -6,8 +6,7 @@ const path = require("path");
 class DeviceController {
   async create(req, res, next) {
     try {
-      const { name, description, price, typeId, brandId, device_info } =
-        req.body;
+      const { name, description, price, typeId, brandId, device_infos } = req.body;
       const { img_url } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img_url.mv(path.resolve(__dirname, "..", "static", fileName));
@@ -20,16 +19,15 @@ class DeviceController {
         brandId,
         img_url: fileName,
       }).then((res) => {
-        let arr = []
-        for (const [key, value] of Object.entries(JSON.parse(device_info))) {
-          arr.push({'property_name': key, 'property_value' : value, 'deviceId': res.getDataValue('id')});
+        for (const [key, value] of Object.entries(JSON.parse(device_infos))) {
+          arr.push({
+            property_name: key,
+            property_value: value,
+            deviceId: res.getDataValue("id"),
+          });
         }
-        console.log(arr)
-        DeviceInfo.bulkCreate(
-          arr
-        );
+        DeviceInfo.bulkCreate(p);
       });
-
       return res.json(device);
     } catch (error) {
       next(ApiError.badRequest(error.message));

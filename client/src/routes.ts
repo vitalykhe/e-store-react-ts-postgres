@@ -1,4 +1,4 @@
-import { Admin } from "./pages/Admin";
+import  AdminPage from "./pages/AdminPage";
 import { Auth } from "./pages/Auth";
 import { Basket } from "./pages/Basket";
 import { DevicePage } from "./pages/DevicePage";
@@ -8,7 +8,7 @@ import * as routes from "./utils/consts";
 export const authRoutes = [
   {
     path: routes.ADMIN_ROUTE,
-    component: Admin,
+    component: AdminPage,
   },
   {
       path: routes.BASKET_ROUTE,
