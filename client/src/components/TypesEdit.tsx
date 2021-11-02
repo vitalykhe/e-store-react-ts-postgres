@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { ListGroup, Form, Button, Row, Col, Container } from "react-bootstrap";
 import { Type } from "../utils/types";
-import { fetchTypes, deleteType, createType } from "../http/deviceAPI";
+import { fetchTypes, deleteType, createType, updateTypesArr } from "../http/deviceAPI";
 
 interface Props {}
 
@@ -11,9 +11,11 @@ interface Props {}
  **/
 
 const TypesAdmin: FC<Props> = (props) => {
-  const [deviceTypes, setDeviceTypes] = useState<Type[]>([]);
+  
+  const [deviceTypes, setDeviceTypes] = useState<Type[]>([])
   const [addNew, setAddNew] = useState(false)
   const [newTypeName, setNewTypeName] = useState('')
+  const [changesSaved, setChangesSaved] = useState(true)
 
   useEffect(() => {
     fetchTypes().then((types) => {
@@ -34,9 +36,12 @@ const TypesAdmin: FC<Props> = (props) => {
   ) {
     const updatedControls = deviceTypes.map((type) => {
       if (typeId !== type.id) return type;
-      else return { ...type, name: e.target.value };
+      else {
+        return { ...type, name: e.target.value };
+      }
     });
     setDeviceTypes(updatedControls);
+    setChangesSaved(false)
   }
 
   const callDeleteType = (id: number) => {
@@ -47,9 +52,10 @@ const TypesAdmin: FC<Props> = (props) => {
   };
 
   const addNewType = () => {
-    if(addNew) {
+    if(addNew && newTypeName.length > 0) {
       createType({name: newTypeName}).then(() => {
         fetchTypes().then((res) => {
+          // setChangesSaved(true)
           setDeviceTypes(res)
         })
       })
@@ -57,6 +63,15 @@ const TypesAdmin: FC<Props> = (props) => {
       setAddNew(false)
     }
     else setAddNew(true)
+  }
+
+  const saveChanges = () => {
+    updateTypesArr(deviceTypes).then(()=>{
+      setChangesSaved(!changesSaved)
+      fetchTypes().then((res) => {
+        setDeviceTypes(res)
+      })
+    })
   }
 
   return (
@@ -107,6 +122,8 @@ const TypesAdmin: FC<Props> = (props) => {
               </Row>
         </ListGroup.Item>
       </ListGroup>
+      {!changesSaved ? <Button className="mt-2" onClick={() => saveChanges()}>Save changes</Button> : '' }
+        
     </Container>
   );
 };

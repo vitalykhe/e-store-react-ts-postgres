@@ -72,7 +72,6 @@ export const fetchDevice = async (id: number) => {
 };
 
 export const deleteType = async (id: number) => {
-  console.log(id)
   const response = await $authHost.post("api/type/" + id);
   const data = response.data as Type[];
   if (Array.isArray(data))
@@ -84,4 +83,9 @@ export const deleteType = async (id: number) => {
   }
 };
 
-
+export const updateTypesArr = async (types: Type[]) => {
+  console.log(types)
+  const response = await $authHost.post("api/type/update/", types)
+  if(response.data === 'OK') return
+  else return console.log(response.data)
+}

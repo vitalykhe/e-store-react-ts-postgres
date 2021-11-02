@@ -4,7 +4,7 @@ import { Button, Card, Col, Container, Row, Image } from "react-bootstrap";
 import { Star } from "react-bootstrap-icons";
 import { useParams } from "react-router-dom";
 import { fetchDevice } from "../http/deviceAPI";
-import { Device, DeviceInfo } from "../utils/types";
+import { Device } from "../utils/types";
 
 interface IProps {}
 

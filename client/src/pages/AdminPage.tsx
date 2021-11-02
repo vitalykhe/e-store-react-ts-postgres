@@ -1,6 +1,5 @@
-import React, { FC, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
-import TypesBar from '../components/TypesBar'
+import React, { FC} from 'react'
+import { Container, Row } from 'react-bootstrap'
 import TypesEdit from '../components/TypesEdit';
 
 interface Props {}
