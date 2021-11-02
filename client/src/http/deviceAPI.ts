@@ -1,7 +1,7 @@
 import { $noAuthHost, $authHost } from "./index";
-import { Type, Brand, Device, DevicesAPIResponse } from "../utils/types";
+import { Type, Brand, Device, DevicesAPIResponse, TypeName } from "../utils/types";
 
-export const createType = async (type: Type) => {
+export const createType = async (type: TypeName) => {
   const response = await $authHost.post("api/type", type);
   const data = response.data as Type;
   //Need type
@@ -70,3 +70,18 @@ export const fetchDevice = async (id: number) => {
   const data = response.data as Device;
   return data
 };
+
+export const deleteType = async (id: number) => {
+  console.log(id)
+  const response = await $authHost.post("api/type/" + id);
+  const data = response.data as Type[];
+  if (Array.isArray(data))
+    return data;
+  else {
+    console.error("response is not array of type");
+    console.log(data);
+    return [];
+  }
+};
+
+

@@ -5,6 +5,7 @@ const TypeController = require('../controllers/typeController')
 const checkRole = require('../middleware/roleCheckMiddleware')
 
 router.post('/', checkRole('ADMIN'), typeController.create)
+router.post('/:id', checkRole('ADMIN'), typeController.delete)
 router.get('/', typeController.getAll)
 
 module.exports = router

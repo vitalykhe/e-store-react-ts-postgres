@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import TypesBar from '../components/TypesBar'
+import TypesEdit from '../components/TypesEdit';
 
 interface Props {}
 
@@ -11,14 +12,10 @@ interface Props {}
 
 const AdminPage:FC<Props> = (props) => {
 
-  const [addTypeShow, setTypeShow] = useState(false);
-  const [addBrandShow, setBrandShow] = useState(false);
-  const [addDeviceShow, setDeviceShow] = useState(false);
-
   return (
     <Container>
       <Row>
-          <TypesBar editable={true}/>
+          <TypesEdit/>
       </Row>
     </Container>
    )
