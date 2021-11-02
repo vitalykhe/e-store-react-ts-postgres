@@ -27,10 +27,7 @@ export const NavBar: FC<IProps> = observer((props) => {
       <Container>
         <Navbar.Brand href={SHOP_ROUTE}>EcoLight</Navbar.Brand>
         <Nav className="ml-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
-          <Nav.Link href="#pricing"></Nav.Link>
+
           {user?.getIsAuth() ? 
             <Button onClick={() => logOut()}>logout</Button>
             : 

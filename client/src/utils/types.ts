@@ -58,17 +58,19 @@ export interface DeviceInfo {
   property_value: string;
 }
 
-export type Type = {
+export interface Type extends TypeName {
   id: number;
+};
+
+export interface TypeName {
   name: string;
 };
 
-export type TypeName = {
-  name: string;
+export interface Brand extends BrandName  {
+  id: number;
 };
 
-export type Brand = {
-  id: number;
+export interface BrandName  {
   name: string;
 };
 

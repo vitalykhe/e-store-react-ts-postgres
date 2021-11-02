@@ -1,5 +1,5 @@
 import { $noAuthHost, $authHost } from "./index";
-import { Type, Brand, Device, DevicesAPIResponse, TypeName } from "../utils/types";
+import { Type, Brand, Device, DevicesAPIResponse, TypeName, BrandName } from "../utils/types";
 
 export const createType = async (type: TypeName) => {
   const response = await $authHost.post("api/type", type);
@@ -20,7 +20,7 @@ export const fetchTypes = async () => {
   }
 };
 
-export const createBrand = async (brand: Brand) => {
+export const createBrand = async (brand: BrandName) => {
   const response = await $authHost.post("api/brand", brand);
   const data = response.data as Brand;
   return data;
@@ -86,6 +86,25 @@ export const deleteType = async (id: number) => {
 export const updateTypesArr = async (types: Type[]) => {
   console.log(types)
   const response = await $authHost.post("api/type/update/", types)
+  if(response.data === 'OK') return
+  else return console.log(response.data)
+}
+
+export const deleteBrand = async (id: number) => {
+  const response = await $authHost.post("api/brand/" + id);
+  const data = response.data as Brand[];
+  if (Array.isArray(data))
+    return data;
+  else {
+    console.error("response is not array of type");
+    console.log(data);
+    return [];
+  }
+};
+
+export const updateBrandsArr = async (brands: Brand[]) => {
+  console.log(brands)
+  const response = await $authHost.post("api/brand/update/", brands)
   if(response.data === 'OK') return
   else return console.log(response.data)
 }

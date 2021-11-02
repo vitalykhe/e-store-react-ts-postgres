@@ -78,7 +78,7 @@ const TypesAdmin: FC<Props> = (props) => {
     <Container>
       <Row>
         <Col>
-          <h1>Edit types</h1>
+          <div className="m-2"><h3>Edit types</h3></div>
         </Col>
       </Row>
       <ListGroup as="ul" style={{ width: 600 }}>
@@ -96,7 +96,7 @@ const TypesAdmin: FC<Props> = (props) => {
                   />
                 </Col>
                 <Col md={2}>
-                  <Button onClick={() => callDeleteType(type.id)}>X</Button>
+                  <Button variant="danger"  onClick={() => callDeleteType(type.id)}>X</Button>
                 </Col>
               </Row>
             </ListGroup.Item>
@@ -118,11 +118,12 @@ const TypesAdmin: FC<Props> = (props) => {
                 </Col>
                 <Col md={2}>
                   <Button onClick={() => addNewType()}>{!addNew? 'add': 'save'}</Button>
+                  {!changesSaved ? <Button variant="info" className="mt-2" onClick={() => saveChanges()}>Save changes</Button> : '' }
                 </Col>
               </Row>
         </ListGroup.Item>
       </ListGroup>
-      {!changesSaved ? <Button className="mt-2" onClick={() => saveChanges()}>Save changes</Button> : '' }
+      
         
     </Container>
   );

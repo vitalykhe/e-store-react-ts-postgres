@@ -1,6 +1,7 @@
 import React, { FC} from 'react'
 import { Container, Row } from 'react-bootstrap'
-import TypesEdit from '../components/TypesEdit';
+import BrandsAdmin from '../components/BrandsAdmin';
+import TypesAdmin from '../components/TypesAdmin';
 
 interface Props {}
 
@@ -14,7 +15,8 @@ const AdminPage:FC<Props> = (props) => {
   return (
     <Container>
       <Row>
-          <TypesEdit/>
+          <TypesAdmin/>
+        <BrandsAdmin/>
       </Row>
     </Container>
    )
