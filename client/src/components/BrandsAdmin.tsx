@@ -10,7 +10,7 @@ interface Props {}
  * @function BrandsAdmin
  **/
 
-const BrandsAdmin: FC<Props> = (props) => {
+export const BrandsAdmin: FC<Props> = (props) => {
   
   const [deviceBrands, setDeviceBrands] = useState<Brand[]>([])
   const [addNewBrand, setAddNewBrand] = useState(false)
@@ -127,5 +127,3 @@ const BrandsAdmin: FC<Props> = (props) => {
     </Container>
   );
 };
-
-export default BrandsAdmin;

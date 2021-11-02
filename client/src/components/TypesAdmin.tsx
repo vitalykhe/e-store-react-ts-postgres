@@ -10,7 +10,7 @@ interface Props {}
  * @function TypesAdmin
  **/
 
-const TypesAdmin: FC<Props> = (props) => {
+export const TypesAdmin: FC<Props> = (props) => {
   
   const [deviceTypes, setDeviceTypes] = useState<Type[]>([])
   const [addNew, setAddNew] = useState(false)
@@ -128,5 +128,3 @@ const TypesAdmin: FC<Props> = (props) => {
     </Container>
   );
 };
-
-export default TypesAdmin;
