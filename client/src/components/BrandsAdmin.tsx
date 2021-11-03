@@ -1,7 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { ListGroup, Form, Button, Row, Col, Container } from "react-bootstrap";
 import { Brand } from "../utils/types";
 import { fetchBrands, deleteBrand, createBrand, updateBrandsArr } from "../http/deviceAPI";
+import { Context } from "..";
 
 interface Props {}
 
@@ -12,6 +13,7 @@ interface Props {}
 
 export const BrandsAdmin: FC<Props> = (props) => {
   
+  const { devices } = useContext(Context)
   const [deviceBrands, setDeviceBrands] = useState<Brand[]>([])
   const [addNewBrand, setAddNewBrand] = useState(false)
   const [newBrandName, setNewBrandBrandName] = useState('')
@@ -20,8 +22,9 @@ export const BrandsAdmin: FC<Props> = (props) => {
   useEffect(() => {
     fetchBrands().then((brands) => {
       setDeviceBrands(brands);
+      devices?.setBrands(brands)
     });
-  }, []);
+  }, [devices]);
 
   function saveBrand(
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>,
@@ -48,6 +51,7 @@ export const BrandsAdmin: FC<Props> = (props) => {
 
     deleteBrand(id).then((res) => {
       setDeviceBrands(res);
+      devices?.setBrands(res)
     });
   };
 
@@ -57,6 +61,7 @@ export const BrandsAdmin: FC<Props> = (props) => {
         fetchBrands().then((res) => {
           // setChangesBrandsSaved(true)
           setDeviceBrands(res)
+          devices?.setBrands(res)
         })
       })
       setNewBrandBrandName('')
@@ -70,6 +75,7 @@ export const BrandsAdmin: FC<Props> = (props) => {
       setChangesBrandsSaved(!changesBrandsSaved)
       fetchBrands().then((res) => {
         setDeviceBrands(res)
+        devices?.setBrands(res)
       })
     })
   }

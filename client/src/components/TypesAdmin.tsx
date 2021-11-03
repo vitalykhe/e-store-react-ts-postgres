@@ -1,7 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { ListGroup, Form, Button, Row, Col, Container } from "react-bootstrap";
 import { Type } from "../utils/types";
 import { fetchTypes, deleteType, createType, updateTypesArr } from "../http/deviceAPI";
+import { Context } from "..";
 
 interface Props {}
 
@@ -12,6 +13,8 @@ interface Props {}
 
 export const TypesAdmin: FC<Props> = (props) => {
   
+  const { devices } = useContext(Context)
+
   const [deviceTypes, setDeviceTypes] = useState<Type[]>([])
   const [addNew, setAddNew] = useState(false)
   const [newTypeName, setNewTypeName] = useState('')
@@ -20,8 +23,9 @@ export const TypesAdmin: FC<Props> = (props) => {
   useEffect(() => {
     fetchTypes().then((types) => {
       setDeviceTypes(types);
+      devices?.setTypes(types)
     });
-  }, []);
+  }, [devices]);
 
   function saveType(
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>,
@@ -48,6 +52,7 @@ export const TypesAdmin: FC<Props> = (props) => {
 
     deleteType(id).then((res) => {
       setDeviceTypes(res);
+      devices?.setTypes(res)
     });
   };
 
@@ -57,6 +62,7 @@ export const TypesAdmin: FC<Props> = (props) => {
         fetchTypes().then((res) => {
           // setChangesSaved(true)
           setDeviceTypes(res)
+          devices?.setTypes(res)
         })
       })
       setNewTypeName('')
@@ -70,6 +76,7 @@ export const TypesAdmin: FC<Props> = (props) => {
       setChangesSaved(!changesSaved)
       fetchTypes().then((res) => {
         setDeviceTypes(res)
+        devices?.setTypes(res)
       })
     })
   }

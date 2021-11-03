@@ -1,6 +1,7 @@
 import { $noAuthHost, $authHost } from "./index";
 import { Type, Brand, Device, DevicesAPIResponse, TypeName, BrandName } from "../utils/types";
 
+
 export const createType = async (type: TypeName) => {
   const response = await $authHost.post("api/type", type);
   const data = response.data as Type;
