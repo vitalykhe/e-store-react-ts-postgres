@@ -34,8 +34,10 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
   const [deviceProperties, setDeviceProperties] = useState<DeviceProperty[]>([]);
 
   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [price, setPrice] = useState<number>(0);
   const [file, setFile] = useState<File | null>(null);
+
 
   const selectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) setFile(e.target.files[0])
@@ -45,8 +47,8 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
     setDeviceProperties([
       ...deviceProperties,
       {
-        propertyTitle: "",
-        propertyDescription: "",
+        property_name: "",
+        property_value: "",
         uniqueKey: Date.now(),
       },
     ])
@@ -74,12 +76,14 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
       if (brandId && typeId && file) {
         const formData:MyFormData = new FormData();
         formData.append('name', name);
+        formData.append('description', description);
         formData.append('price', price.toString());
         formData.append('img_url', file);
         formData.append('brandId', brandId.toString());
         formData.append('typeId', typeId.toString());
         formData.append('device_info', JSON.stringify(deviceProperties));
         createDevice(formData)
+        onHide()
       } else console.log('Form is not valid. Each field required.')
     } else console.log('Form is not valid. Each field required.')
   };
@@ -134,6 +138,13 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
           />
 
           <Form.Control
+            value={description}
+            placeholder={"Device description"}
+            className="m-1"
+            onChange={(e) => setDescription(e.target.value)}
+          />
+
+          <Form.Control
             value={price}
             placeholder={"Device price"}
             type={"number"}
@@ -153,14 +164,14 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
               <Col>
                 <Form.Control placeholder={"title"} className="m-1"
                   onChange={
-                    (e) => editProperty('propertyTitle', e.target.value, property.uniqueKey)
+                    (e) => editProperty('property_name', e.target.value, property.uniqueKey)
                   }
                 />
               </Col>
               <Col>
                 <Form.Control placeholder={"description"} className="m-1"
                   onChange={
-                    (e) => editProperty('propertyDescription', e.target.value, property.uniqueKey)
+                    (e) => editProperty('property_value', e.target.value, property.uniqueKey)
                   }
                 />
               </Col>
@@ -180,7 +191,7 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant={"outline"} onClick={() => addDevice}>
+        <Button variant={"outline"} onClick={addDevice}>
           Submit
         </Button>
         <Button variant={"outline"} onClick={onHide}>

@@ -42,15 +42,12 @@ export const fetchBrands = async () => {
 
 export const createDevice = async (device: FormData) => {
   const response = await $authHost.post("api/device", device);
-  const data = response.data as Device[];
-  if (Array.isArray(data))
-    //Need type
-    return data;
-  else {
-    console.error("recieved not array of device from server");
-    console.log(data);
-    return [];
+  const data = response.data
+  if((data as Device).id !== undefined) {
+    alert(`Device ${(data as Device).name} has been successfully added`)
   }
+  else console.log(data);
+  // return data  as Device;
 };
 
 export const fetchDevices = async () => {

@@ -6,10 +6,13 @@ const path = require("path");
 class DeviceController {
   async create(req, res, next) {
     try {
-      const { name, description, price, typeId, brandId, device_infos } = req.body;
+      const { name, description, price, typeId, brandId, device_info } =
+        req.body;
       const { img_url } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img_url.mv(path.resolve(__dirname, "..", "static", fileName));
+
+      const di = JSON.parse(device_info);
 
       const device = await Device.create({
         name,
@@ -18,16 +21,18 @@ class DeviceController {
         typeId,
         brandId,
         img_url: fileName,
-      }).then((res) => {
-        for (const [key, value] of Object.entries(JSON.parse(device_infos))) {
-          arr.push({
-            property_name: key,
-            property_value: value,
-            deviceId: res.getDataValue("id"),
-          });
-        }
-        DeviceInfo.bulkCreate(p);
       });
+
+      if (device && di) {
+        DeviceInfo.bulkCreate(
+          di.map((el) => ({
+            property_name: el.property_name,
+            property_value: el.property_value,
+            deviceId: device.id
+          }))
+        );
+      }
+
       return res.json(device);
     } catch (error) {
       next(ApiError.badRequest(error.message));
@@ -38,7 +43,7 @@ class DeviceController {
     const { brandId, typeId } = req.query;
     let { limit, page } = req.query;
     page = page || 1;
-    limit = limit || 9;
+    limit = limit || 8;
     let offset = page * limit - limit;
 
     let devices;

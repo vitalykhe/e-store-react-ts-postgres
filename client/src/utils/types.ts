@@ -37,7 +37,7 @@ export type DevicesAPIResponse = {
 };
 
 export type Device = {
-  id?: number;
+  id: number;
   name: string;
   img_url: string;
   price: number;
@@ -61,8 +61,8 @@ export type CreateDeviceFormInterface = {
 export type CreateDeviceFormInterfaceKey = keyof CreateDeviceFormInterface
 
 export type DeviceProperty = {
-  propertyTitle: string;
-  propertyDescription: string;
+  property_name: string;
+  property_value: string;
   uniqueKey: number;
 }
 
