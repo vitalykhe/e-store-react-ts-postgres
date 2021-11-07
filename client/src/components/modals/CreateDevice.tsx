@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { FC, useContext, useEffect, useState } from "react";
 import { Button, Col, Dropdown, Form, Row } from "react-bootstrap";
-import { FolderMinus } from "react-bootstrap-icons";
 import Modal from "react-bootstrap/Modal";
 import { fetchTypes, fetchBrands, createDevice } from "../../http/deviceAPI";
 import { Context } from "../../index";

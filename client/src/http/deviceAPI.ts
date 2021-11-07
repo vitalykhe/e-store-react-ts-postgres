@@ -1,5 +1,5 @@
 import { $noAuthHost, $authHost } from "./index";
-import { Type, Brand, Device, DevicesAPIResponse, TypeName, BrandName, CreateDeviceFormInterface } from "../utils/types";
+import { Type, Brand, Device, DevicesAPIResponse, TypeName, BrandName } from "../utils/types";
 
 
 export const createType = async (type: TypeName) => {
