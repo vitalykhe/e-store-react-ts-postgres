@@ -1,13 +1,19 @@
 import { observer } from "mobx-react-lite";
 import React, { FC, useContext, useEffect, useState } from "react";
 import { Button, Col, Dropdown, Form, Row } from "react-bootstrap";
+import { FolderMinus } from "react-bootstrap-icons";
 import Modal from "react-bootstrap/Modal";
-import { fetchTypes , fetchBrands} from "../../http/deviceAPI";
+import { fetchTypes, fetchBrands, createDevice } from "../../http/deviceAPI";
 import { Context } from "../../index";
+import { DeviceProperty, DevicePropertyKey, CreateDeviceFormInterfaceKey } from '../../utils/types'
 
 interface IProps {
   show: boolean;
   onHide: () => void;
+}
+
+interface MyFormData extends FormData {
+  append(name: CreateDeviceFormInterfaceKey, value: string | Blob, fileName?: string): void;
 }
 
 /**
@@ -17,32 +23,24 @@ interface IProps {
 
 export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
 
-  interface DeviceProperty {
-    propertyTitle: string;
-    propertyDescription: string;
-    uniqueKey: number;
-  }
+
 
   const { devices } = useContext(Context);
 
   useEffect(() => {
-    fetchTypes().then(types => devices?.setTypes(types))
-    fetchBrands().then(brands => devices?.setBrands(brands))
-  }, [devices])
+    fetchTypes().then((types) => devices?.setTypes(types));
+    fetchBrands().then((brands) => devices?.setBrands(brands));
+  }, [devices]);
 
-  const [deviceProperties, setDeviceProperties] = useState<DeviceProperty[]>(
-    []
-  );
+  const [deviceProperties, setDeviceProperties] = useState<DeviceProperty[]>([]);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState<number>(0);
-  const [description, setDescription] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
 
   const selectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // setFile(e.target.files)
-    if (e.target.files) setFile(e.target.files[0]);
-  };
+    if (e.target.files) setFile(e.target.files[0])
+  }
 
   const addNewProp = () => {
     setDeviceProperties([
@@ -52,7 +50,7 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
         propertyDescription: "",
         uniqueKey: Date.now(),
       },
-    ]);
+    ])
   };
 
   const removeProp = (uniqueKey: number): void => {
@@ -61,14 +59,30 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
     );
   };
 
+  const editProperty = (key: DevicePropertyKey, value: string, uk: number) => {
+    setDeviceProperties(
+      deviceProperties.map(prop => prop.uniqueKey === uk ? { ...prop, [key]: value } : prop)
+    )
+
+  }
+
+
+  
   const addDevice = () => {
-    const formData = new FormData();
-    formData.append("title", "");
-    formData.append("price", "");
-    formData.append("img_url", "");
-    formData.append("brand", "");
-    formData.append("type", "");
-    formData.append("device_properties", "");
+    if (devices) {
+      const brandId = devices.getSelectedBrand()
+      const typeId = devices.getSelectedType()
+      if (brandId && typeId && file) {
+        const formData:MyFormData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price.toString());
+        formData.append('img_url', file);
+        formData.append('brandId', brandId.toString());
+        formData.append('typeId', typeId.toString());
+        formData.append('device_info', JSON.stringify(deviceProperties));
+        createDevice(formData)
+      } else console.log('Form is not valid. Each field required.')
+    } else console.log('Form is not valid. Each field required.')
   };
 
   return (
@@ -81,7 +95,9 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
       <Modal.Body>
         <Form>
           <Dropdown className="m-1">
-            <Dropdown.Toggle>{devices?.getSelectedTypeObject()?.name || 'Choose type'}</Dropdown.Toggle>
+            <Dropdown.Toggle>
+              {devices?.getSelectedTypeObject()?.name || "Choose type"}
+            </Dropdown.Toggle>
             <Dropdown.Menu>
               {devices?.getTypes()?.map((type) => (
                 <Dropdown.Item
@@ -95,7 +111,9 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
             </Dropdown.Menu>
           </Dropdown>
           <Dropdown className="m-1">
-            <Dropdown.Toggle>{devices?.getSelectedBrandObject()?.name || 'Choose brand'}</Dropdown.Toggle>
+            <Dropdown.Toggle>
+              {devices?.getSelectedBrandObject()?.name || "Choose brand"}
+            </Dropdown.Toggle>
             <Dropdown.Menu>
               {devices?.getBrands()?.map((brand) => (
                 <Dropdown.Item
@@ -134,10 +152,18 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
           {deviceProperties.map((property) => (
             <Row key={property.uniqueKey} className="m-3">
               <Col>
-                <Form.Control placeholder={"title"} className="m-1" />
+                <Form.Control placeholder={"title"} className="m-1"
+                  onChange={
+                    (e) => editProperty('propertyTitle', e.target.value, property.uniqueKey)
+                  }
+                />
               </Col>
               <Col>
-                <Form.Control placeholder={"description"} className="m-1" />
+                <Form.Control placeholder={"description"} className="m-1"
+                  onChange={
+                    (e) => editProperty('propertyDescription', e.target.value, property.uniqueKey)
+                  }
+                />
               </Col>
               <Col>
                 <Button
@@ -149,13 +175,13 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
               </Col>
             </Row>
           ))}
-          <Button variant={"outline"} onClick={addNewProp}>
+          <Button variant={'info'} onClick={addNewProp}>
             Create new property
           </Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant={"outline"} onClick={() => {}}>
+        <Button variant={"outline"} onClick={() => addDevice}>
           Submit
         </Button>
         <Button variant={"outline"} onClick={onHide}>
@@ -164,4 +190,4 @@ export const CreateDevice: FC<IProps> = observer(({ show, onHide }) => {
       </Modal.Footer>
     </Modal>
   );
-})
+});

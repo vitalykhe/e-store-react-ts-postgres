@@ -37,20 +37,36 @@ export type DevicesAPIResponse = {
 };
 
 export type Device = {
-  id: number;
+  id?: number;
   name: string;
   img_url: string;
   price: number;
   description: string;
   rating: number;
-  device_infos: DeviceInfo[];
+  device_info: DeviceInfo[];
   updatedAt?: string;
   createdAt?: string;
 };
 
-interface DeviceProperty {
-  [key: string]: string | number;
+export type CreateDeviceFormInterface = {
+  name: string;
+  img_url: string;
+  price: string;
+  description: string;
+  device_info: DeviceInfo[];
+  brandId: number;
+  typeId: number;
+};
+
+export type CreateDeviceFormInterfaceKey = keyof CreateDeviceFormInterface
+
+export type DeviceProperty = {
+  propertyTitle: string;
+  propertyDescription: string;
+  uniqueKey: number;
 }
+
+export type DevicePropertyKey = keyof DeviceProperty
 
 export interface DeviceInfo {
   id?: number;

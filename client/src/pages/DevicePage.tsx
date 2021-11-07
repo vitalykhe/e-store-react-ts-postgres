@@ -48,7 +48,7 @@ export const DevicePage: FC<IProps> = observer(() => {
                 <Star color={"red"} /> Rating: {device?.rating}
               </div>
 
-              {device?.device_infos.map((property) => (
+              {device?.device_info.map((property) => (
                 <Row key={property.id}>
                   <Col>{property.property_name}</Col>
                   <Col>{property.property_value}</Col>

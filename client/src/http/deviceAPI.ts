@@ -1,5 +1,5 @@
 import { $noAuthHost, $authHost } from "./index";
-import { Type, Brand, Device, DevicesAPIResponse, TypeName, BrandName } from "../utils/types";
+import { Type, Brand, Device, DevicesAPIResponse, TypeName, BrandName, CreateDeviceFormInterface } from "../utils/types";
 
 
 export const createType = async (type: TypeName) => {
@@ -40,7 +40,7 @@ export const fetchBrands = async () => {
   }
 };
 
-export const createDevice = async (device: Device) => {
+export const createDevice = async (device: FormData) => {
   const response = await $authHost.post("api/device", device);
   const data = response.data as Device[];
   if (Array.isArray(data))

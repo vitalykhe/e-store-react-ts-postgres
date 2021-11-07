@@ -6,8 +6,10 @@ export default class DeviceStore {
   private _devices: Array<Device>;
   private _brands: Array<Brand>;
   private _types: Array<Type>;
+
   private _selectedType: number|null;
   private _selectedBrand: number|null;
+  
   private _selectedBrands: number[];
   
   private addOrExcludeNumberFromArray(item: number, arr: Array<any>) {
