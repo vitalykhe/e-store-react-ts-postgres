@@ -50,8 +50,10 @@ export const createDevice = async (device: FormData) => {
   // return data  as Device;
 };
 
-export const fetchDevices = async () => {
-  const response = await $noAuthHost.get("api/device");
+export const fetchDevices = async (typeId: number|null, selectedBrands:number[]|[], limit: number, page: number) => {
+  const response = await $noAuthHost.get("api/device", {params: {
+    typeId, selectedBrands, limit, page
+  }});
   const data = response.data as DevicesAPIResponse;
   if (Array.isArray(data.rows))
     //Need typedevice

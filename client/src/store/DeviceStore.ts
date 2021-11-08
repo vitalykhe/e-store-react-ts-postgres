@@ -11,6 +11,12 @@ export default class DeviceStore {
   private _selectedBrand: number|null;
   
   private _selectedBrands: number[];
+
+  //pagination params
+  
+  public page = 1
+  public pagesCount = 0
+  public limit = 5
   
   private addOrExcludeNumberFromArray(item: number, arr: Array<any>) {
     const index = arr.indexOf(item);

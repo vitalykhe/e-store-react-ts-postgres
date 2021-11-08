@@ -28,7 +28,7 @@ class DeviceController {
           di.map((el) => ({
             property_name: el.property_name,
             property_value: el.property_value,
-            deviceId: device.id
+            deviceId: device.id,
           }))
         );
       }
@@ -40,17 +40,19 @@ class DeviceController {
   }
 
   async getAll(req, res) {
-    const { brandId, typeId } = req.query;
-    let { limit, page } = req.query;
+
+    let { limit, page, brandsIds, typeId} = req.query;
+    console.log(req.query)
+    
     page = page || 1;
     limit = limit || 8;
     let offset = page * limit - limit;
 
     let devices;
-    if (!brandId && !typeId) {
+    if (!brandsIds && !typeId) {
       devices = await Device.findAndCountAll({ limit, offset });
     }
-    if (!brandId && typeId) {
+    if (!brandsIds && typeId) {
       devices = await Device.findAndCountAll({
         where: {
           typeId,
@@ -59,19 +61,19 @@ class DeviceController {
         offset,
       });
     }
-    if (brandId && !typeId) {
+    if (brandsIds && !typeId) {
       devices = await Device.findAndCountAll({
         where: {
-          brandId,
+          brandsIds,
         },
         limit,
         offset,
       });
     }
-    if (brandId && typeId) {
+    if (brandsIds && typeId) {
       devices = await Device.findAndCountAll({
         where: {
-          brandId,
+          brandsIds,
           typeId,
         },
         limit,
