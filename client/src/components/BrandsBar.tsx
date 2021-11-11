@@ -20,7 +20,7 @@ const BrandsBar: FC<Props> = observer((props) => {
         return (
           <Col key={uk}>
             <Card  className="p-1 mt-2 align-items-center"
-              onClick={()=>devices.setSelectedBrands(brand.id)}
+              onClick={()=> { devices.setSelectedBrands(brand.id)}}
               border={devices.getSelectedBrands().indexOf(brand.id) !== -1 ? 'primary': 'light'}
               style={{cursor: 'pointer'}}
             >

@@ -25,10 +25,12 @@ export const Shop: FC<IProps> = observer((props) => {
       fetchDevices(
         devices?.getSelectedType(),
         devices?.getSelectedBrands(),
-        devices?.limit,
-        devices?.page,
-      ).then((device) => devices?.setDevices(device));
-  }, [devices]);
+        devices?.getPagesLimit(),
+        devices?.getPage(),
+      ).then((device) =>  { 
+        devices?.setDevices(device)
+      });
+  }, [devices, devices?.limit, devices?.page, devices?.areSelectedBrandsChanged, devices?._selectedType]);
 
   return (
     <Container>

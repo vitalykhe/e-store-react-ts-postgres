@@ -41,18 +41,18 @@ class DeviceController {
 
   async getAll(req, res) {
 
-    let { limit, page, brandsIds, typeId} = req.query;
-    console.log(req.query)
-    
+    let { limit, page, selectedBrands, typeId} = req.query;
+    console.log(selectedBrands)
+
     page = page || 1;
     limit = limit || 8;
     let offset = page * limit - limit;
 
     let devices;
-    if (!brandsIds && !typeId) {
+    if (!selectedBrands && !typeId) {
       devices = await Device.findAndCountAll({ limit, offset });
     }
-    if (!brandsIds && typeId) {
+    if (!selectedBrands && typeId) {
       devices = await Device.findAndCountAll({
         where: {
           typeId,
@@ -61,19 +61,20 @@ class DeviceController {
         offset,
       });
     }
-    if (brandsIds && !typeId) {
+    if (selectedBrands && !typeId) {
+
       devices = await Device.findAndCountAll({
         where: {
-          brandsIds,
+          brandId:  selectedBrands
         },
         limit,
         offset,
       });
     }
-    if (brandsIds && typeId) {
+    if (selectedBrands && typeId) {
       devices = await Device.findAndCountAll({
         where: {
-          brandsIds,
+          brandId: selectedBrands,
           typeId,
         },
         limit,
