@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react'
+import React, { FC, useContext } from 'react'
 import { observer } from 'mobx-react-lite';
 import { Context } from '..';
 import { Pagination } from 'react-bootstrap'
