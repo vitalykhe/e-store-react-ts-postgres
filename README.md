@@ -2,8 +2,8 @@
 
 yarn start
 
-cd server
+cd server;
 yarn run dev
 
-cd ../client
+cd ../client;
 yarn start
