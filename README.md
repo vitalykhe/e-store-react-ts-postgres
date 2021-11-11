@@ -1,7 +1,9 @@
 # e-store-react-ts-postgres
 
-server:
+yarn start
+
+cd server
 yarn run dev
 
-client:
+cd ../client
 yarn start
