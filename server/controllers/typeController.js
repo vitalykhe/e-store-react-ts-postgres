@@ -33,5 +33,18 @@ class TypeController {
     
   }
 }
+function getParticipants(handshakes){
+  //handshakes = (n * (n - 1))/2
+  //n^2 - n - 2 * handshakes = 0
+  let x = Math.floor((1 + (Math.sqrt(1+8*handshakes)))/2)
+  while (Math.floor((1 + (Math.sqrt(1+8*handshakes)))/2) -
+      Math.ceil((1 + (Math.sqrt(1+8*handshakes)))/2) !== 0) {
+    handshakes++;
+    x = Math.floor((1 + (Math.sqrt(1+8*handshakes)))/2)
+  }
+     
+  return x
+  
+}
 
 module.exports = new TypeController();
